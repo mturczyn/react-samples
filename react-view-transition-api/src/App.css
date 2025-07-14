@@ -1,0 +1,15 @@
+button.toggle-container {
+    width: 10em;
+    height: 5em;
+    border-radius: 5em;
+    background: black;
+    cursor: pointer;
+    display: flex;
+}
+
+.toggle-handle {
+    width: 5em;
+    height: 5em;
+    background: green;
+    border-radius: 50%;
+}
