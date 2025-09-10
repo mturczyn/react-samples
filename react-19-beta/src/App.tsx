@@ -1,49 +1,73 @@
-import { Suspense, use, useState, unstable_Activity as Activity } from 'react'
+import {
+    Suspense,
+    use,
+    useState,
+    unstable_Activity as Activity,
+    useRef,
+} from 'react'
 import './App.css'
 
 function App() {
+    const promise = useRef(
+        new Promise<string>((resolve) => {
+            console.log('APP COMPONENT:Starting the promise in async component')
+            setTimeout(() => {
+                resolve('foo')
+            }, 3000)
+        })
+    )
     return (
         <>
             <Suspense fallback="Is loading...">
-                <AsyncComponent title="Main app async component" />
+                <AsyncComponent promise={promise.current} />
             </Suspense>
-            {/* <ActivityExample /> */}
+            <ActivityExample />
         </>
     )
 }
 
 export default App
 
-function AsyncComponent({ title }: { title: string }) {
-    const data = use<string>(
-        new Promise((resolve) => {
-            console.log(title, 'Starting the promise in async component')
-            setTimeout(() => {
-                resolve('foo')
-            }, 1000)
-        })
-    )
+function AsyncComponent<T>({ promise }: { promise: Promise<T> }) {
+    const data = use<T>(promise)
+    console.log('rendering async component for title', data)
     return (
-        <>
-            <h1>{title} (check logs related to this)</h1>
-            <div>Async data: {data}</div>
-        </>
+        <div style={{ border: '1px solid black' }}>
+            Async data: {JSON.stringify(data)}
+        </div>
     )
 }
 
 function ActivityExample() {
     const [visible, setVisible] = useState(false)
-
+    const withoutActivity = useRef(
+        new Promise<string>((resolve) => {
+            console.log(
+                'ActivityExample COMPONENT without activity:Starting the promise in async component'
+            )
+            setTimeout(() => {
+                resolve('withoutActivity')
+            }, 3000)
+        })
+    )
+    const withActivity = useRef(
+        new Promise<string>((resolve) => {
+            console.log(
+                'ActivityExample COMPONENT with activity:Starting the promise in async component'
+            )
+            setTimeout(() => {
+                resolve('withActivity')
+            }, 3000)
+        })
+    )
     return (
         <>
             <button onClick={() => setVisible(!visible)}>
                 Toggle Visibility
             </button>
-            {visible && (
-                <AsyncComponent title="Async Component without activity" />
-            )}
+            {visible && <AsyncComponent promise={withoutActivity.current} />}
             <Activity mode={visible ? 'visible' : 'hidden'}>
-                <AsyncComponent title="Async Component WITH activity" />
+                <AsyncComponent promise={withActivity.current} />
             </Activity>
         </>
     )
