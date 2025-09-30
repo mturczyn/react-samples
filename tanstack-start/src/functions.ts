@@ -1,4 +1,8 @@
-import { createServerFn, createServerOnlyFn } from '@tanstack/react-start'
+import {
+    createClientOnlyFn,
+    createServerFn,
+    createServerOnlyFn,
+} from '@tanstack/react-start'
 
 // ✅ This runs on BOTH server and client
 export function formatPrice(price: number) {
@@ -18,3 +22,12 @@ export const updateUser = createServerFn({ method: 'POST' })
 
 // Utility: Server-only, client crashes if called
 export const getEnvVar = createServerOnlyFn(() => process.env.DATABASE_URL)
+
+export const getWindowLocation = createClientOnlyFn(() => window.location.href)
+
+export const getWindowLocationFromServer = createServerFn({
+    method: 'GET',
+}).handler(() => {
+    // This will crash the server, as getWindowLocation is client-only
+    return getWindowLocation()
+})
