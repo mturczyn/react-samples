@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PostsRouteImport } from './routes/posts'
+import { Route as PlaygroundRouteImport } from './routes/playground'
+import { Route as MeczykiRouteImport } from './routes/meczyki'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
@@ -20,6 +22,16 @@ import { Route as DemoStartApiRequestRouteImport } from './routes/demo.start.api
 const PostsRoute = PostsRouteImport.update({
   id: '/posts',
   path: '/posts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlaygroundRoute = PlaygroundRouteImport.update({
+  id: '/playground',
+  path: '/playground',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeczykiRoute = MeczykiRouteImport.update({
+  id: '/meczyki',
+  path: '/meczyki',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SplatRoute = SplatRouteImport.update({
@@ -56,6 +68,8 @@ const DemoStartApiRequestRoute = DemoStartApiRequestRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/meczyki': typeof MeczykiRoute
+  '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -65,6 +79,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/meczyki': typeof MeczykiRoute
+  '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -75,6 +91,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/meczyki': typeof MeczykiRoute
+  '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -86,6 +104,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/$'
+    | '/meczyki'
+    | '/playground'
     | '/posts'
     | '/api/demo-names'
     | '/posts/$postId'
@@ -95,6 +115,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/$'
+    | '/meczyki'
+    | '/playground'
     | '/posts'
     | '/api/demo-names'
     | '/posts/$postId'
@@ -104,6 +126,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/$'
+    | '/meczyki'
+    | '/playground'
     | '/posts'
     | '/api/demo-names'
     | '/posts/$postId'
@@ -114,6 +138,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
+  MeczykiRoute: typeof MeczykiRoute
+  PlaygroundRoute: typeof PlaygroundRoute
   PostsRoute: typeof PostsRouteWithChildren
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
@@ -127,6 +153,20 @@ declare module '@tanstack/react-router' {
       path: '/posts'
       fullPath: '/posts'
       preLoaderRoute: typeof PostsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/playground': {
+      id: '/playground'
+      path: '/playground'
+      fullPath: '/playground'
+      preLoaderRoute: typeof PlaygroundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meczyki': {
+      id: '/meczyki'
+      path: '/meczyki'
+      fullPath: '/meczyki'
+      preLoaderRoute: typeof MeczykiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$': {
@@ -187,6 +227,8 @@ const PostsRouteWithChildren = PostsRoute._addFileChildren(PostsRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
+  MeczykiRoute: MeczykiRoute,
+  PlaygroundRoute: PlaygroundRoute,
   PostsRoute: PostsRouteWithChildren,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
