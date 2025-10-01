@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PostsRouteImport } from './routes/posts'
 import { Route as PlaygroundRouteImport } from './routes/playground'
-import { Route as MeczykiRouteImport } from './routes/meczyki'
+import { Route as HydrationMismatchesRouteImport } from './routes/hydration-mismatches'
+import { Route as GoogleRouteImport } from './routes/google'
+import { Route as ErrorBoundaryRouteImport } from './routes/error-boundary'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
@@ -29,9 +31,19 @@ const PlaygroundRoute = PlaygroundRouteImport.update({
   path: '/playground',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MeczykiRoute = MeczykiRouteImport.update({
-  id: '/meczyki',
-  path: '/meczyki',
+const HydrationMismatchesRoute = HydrationMismatchesRouteImport.update({
+  id: '/hydration-mismatches',
+  path: '/hydration-mismatches',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GoogleRoute = GoogleRouteImport.update({
+  id: '/google',
+  path: '/google',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ErrorBoundaryRoute = ErrorBoundaryRouteImport.update({
+  id: '/error-boundary',
+  path: '/error-boundary',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SplatRoute = SplatRouteImport.update({
@@ -68,7 +80,9 @@ const DemoStartApiRequestRoute = DemoStartApiRequestRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/meczyki': typeof MeczykiRoute
+  '/error-boundary': typeof ErrorBoundaryRoute
+  '/google': typeof GoogleRoute
+  '/hydration-mismatches': typeof HydrationMismatchesRoute
   '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
   '/api/demo-names': typeof ApiDemoNamesRoute
@@ -79,7 +93,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/meczyki': typeof MeczykiRoute
+  '/error-boundary': typeof ErrorBoundaryRoute
+  '/google': typeof GoogleRoute
+  '/hydration-mismatches': typeof HydrationMismatchesRoute
   '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
   '/api/demo-names': typeof ApiDemoNamesRoute
@@ -91,7 +107,9 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/meczyki': typeof MeczykiRoute
+  '/error-boundary': typeof ErrorBoundaryRoute
+  '/google': typeof GoogleRoute
+  '/hydration-mismatches': typeof HydrationMismatchesRoute
   '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
   '/api/demo-names': typeof ApiDemoNamesRoute
@@ -104,7 +122,9 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/$'
-    | '/meczyki'
+    | '/error-boundary'
+    | '/google'
+    | '/hydration-mismatches'
     | '/playground'
     | '/posts'
     | '/api/demo-names'
@@ -115,7 +135,9 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/$'
-    | '/meczyki'
+    | '/error-boundary'
+    | '/google'
+    | '/hydration-mismatches'
     | '/playground'
     | '/posts'
     | '/api/demo-names'
@@ -126,7 +148,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/$'
-    | '/meczyki'
+    | '/error-boundary'
+    | '/google'
+    | '/hydration-mismatches'
     | '/playground'
     | '/posts'
     | '/api/demo-names'
@@ -138,7 +162,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
-  MeczykiRoute: typeof MeczykiRoute
+  ErrorBoundaryRoute: typeof ErrorBoundaryRoute
+  GoogleRoute: typeof GoogleRoute
+  HydrationMismatchesRoute: typeof HydrationMismatchesRoute
   PlaygroundRoute: typeof PlaygroundRoute
   PostsRoute: typeof PostsRouteWithChildren
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
@@ -162,11 +188,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlaygroundRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/meczyki': {
-      id: '/meczyki'
-      path: '/meczyki'
-      fullPath: '/meczyki'
-      preLoaderRoute: typeof MeczykiRouteImport
+    '/hydration-mismatches': {
+      id: '/hydration-mismatches'
+      path: '/hydration-mismatches'
+      fullPath: '/hydration-mismatches'
+      preLoaderRoute: typeof HydrationMismatchesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/google': {
+      id: '/google'
+      path: '/google'
+      fullPath: '/google'
+      preLoaderRoute: typeof GoogleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/error-boundary': {
+      id: '/error-boundary'
+      path: '/error-boundary'
+      fullPath: '/error-boundary'
+      preLoaderRoute: typeof ErrorBoundaryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$': {
@@ -227,7 +267,9 @@ const PostsRouteWithChildren = PostsRoute._addFileChildren(PostsRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
-  MeczykiRoute: MeczykiRoute,
+  ErrorBoundaryRoute: ErrorBoundaryRoute,
+  GoogleRoute: GoogleRoute,
+  HydrationMismatchesRoute: HydrationMismatchesRoute,
   PlaygroundRoute: PlaygroundRoute,
   PostsRoute: PostsRouteWithChildren,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
