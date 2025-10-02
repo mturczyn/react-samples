@@ -31,6 +31,10 @@ export default function Header() {
                 <div>
                     <Link to="/error-boundary">Error Boundary</Link>
                 </div>
+
+                <div>
+                    <Link to="/middleware">Middleware</Link>
+                </div>
             </nav>
         </header>
     )

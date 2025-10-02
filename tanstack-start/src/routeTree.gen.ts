@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PostsRouteImport } from './routes/posts'
 import { Route as PlaygroundRouteImport } from './routes/playground'
+import { Route as MiddlewareRouteImport } from './routes/middleware'
 import { Route as HydrationMismatchesRouteImport } from './routes/hydration-mismatches'
 import { Route as GoogleRouteImport } from './routes/google'
 import { Route as ErrorBoundaryRouteImport } from './routes/error-boundary'
@@ -29,6 +30,11 @@ const PostsRoute = PostsRouteImport.update({
 const PlaygroundRoute = PlaygroundRouteImport.update({
   id: '/playground',
   path: '/playground',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MiddlewareRoute = MiddlewareRouteImport.update({
+  id: '/middleware',
+  path: '/middleware',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HydrationMismatchesRoute = HydrationMismatchesRouteImport.update({
@@ -83,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/error-boundary': typeof ErrorBoundaryRoute
   '/google': typeof GoogleRoute
   '/hydration-mismatches': typeof HydrationMismatchesRoute
+  '/middleware': typeof MiddlewareRoute
   '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
   '/api/demo-names': typeof ApiDemoNamesRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/error-boundary': typeof ErrorBoundaryRoute
   '/google': typeof GoogleRoute
   '/hydration-mismatches': typeof HydrationMismatchesRoute
+  '/middleware': typeof MiddlewareRoute
   '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
   '/api/demo-names': typeof ApiDemoNamesRoute
@@ -110,6 +118,7 @@ export interface FileRoutesById {
   '/error-boundary': typeof ErrorBoundaryRoute
   '/google': typeof GoogleRoute
   '/hydration-mismatches': typeof HydrationMismatchesRoute
+  '/middleware': typeof MiddlewareRoute
   '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
   '/api/demo-names': typeof ApiDemoNamesRoute
@@ -125,6 +134,7 @@ export interface FileRouteTypes {
     | '/error-boundary'
     | '/google'
     | '/hydration-mismatches'
+    | '/middleware'
     | '/playground'
     | '/posts'
     | '/api/demo-names'
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/error-boundary'
     | '/google'
     | '/hydration-mismatches'
+    | '/middleware'
     | '/playground'
     | '/posts'
     | '/api/demo-names'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/error-boundary'
     | '/google'
     | '/hydration-mismatches'
+    | '/middleware'
     | '/playground'
     | '/posts'
     | '/api/demo-names'
@@ -165,6 +177,7 @@ export interface RootRouteChildren {
   ErrorBoundaryRoute: typeof ErrorBoundaryRoute
   GoogleRoute: typeof GoogleRoute
   HydrationMismatchesRoute: typeof HydrationMismatchesRoute
+  MiddlewareRoute: typeof MiddlewareRoute
   PlaygroundRoute: typeof PlaygroundRoute
   PostsRoute: typeof PostsRouteWithChildren
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
@@ -186,6 +199,13 @@ declare module '@tanstack/react-router' {
       path: '/playground'
       fullPath: '/playground'
       preLoaderRoute: typeof PlaygroundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/middleware': {
+      id: '/middleware'
+      path: '/middleware'
+      fullPath: '/middleware'
+      preLoaderRoute: typeof MiddlewareRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hydration-mismatches': {
@@ -270,6 +290,7 @@ const rootRouteChildren: RootRouteChildren = {
   ErrorBoundaryRoute: ErrorBoundaryRoute,
   GoogleRoute: GoogleRoute,
   HydrationMismatchesRoute: HydrationMismatchesRoute,
+  MiddlewareRoute: MiddlewareRoute,
   PlaygroundRoute: PlaygroundRoute,
   PostsRoute: PostsRouteWithChildren,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
@@ -281,10 +302,11 @@ export const routeTree = rootRouteImport
   ._addFileTypes<FileRouteTypes>()
 
 import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
+import type { startInstance } from './start.ts'
 declare module '@tanstack/react-start' {
   interface Register {
     ssr: true
     router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
   }
 }
