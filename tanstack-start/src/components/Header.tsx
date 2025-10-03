@@ -35,6 +35,10 @@ export default function Header() {
                 <div>
                     <Link to="/middleware">Middleware</Link>
                 </div>
+
+                <div>
+                    <Link to="/server-routes">Server Routes</Link>
+                </div>
             </nav>
         </header>
     )

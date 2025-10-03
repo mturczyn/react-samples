@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SimpleServerRouteRouteImport } from './routes/simple-server-route'
+import { Route as ServerRoutesRouteImport } from './routes/server-routes'
 import { Route as PostsRouteImport } from './routes/posts'
 import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as MiddlewareRouteImport } from './routes/middleware'
@@ -22,6 +24,16 @@ import { Route as ApiDemoNamesRouteImport } from './routes/api.demo-names'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo.start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo.start.api-request'
 
+const SimpleServerRouteRoute = SimpleServerRouteRouteImport.update({
+  id: '/simple-server-route',
+  path: '/simple-server-route',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServerRoutesRoute = ServerRoutesRouteImport.update({
+  id: '/server-routes',
+  path: '/server-routes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PostsRoute = PostsRouteImport.update({
   id: '/posts',
   path: '/posts',
@@ -92,6 +104,8 @@ export interface FileRoutesByFullPath {
   '/middleware': typeof MiddlewareRoute
   '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
+  '/server-routes': typeof ServerRoutesRoute
+  '/simple-server-route': typeof SimpleServerRouteRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -106,6 +120,8 @@ export interface FileRoutesByTo {
   '/middleware': typeof MiddlewareRoute
   '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
+  '/server-routes': typeof ServerRoutesRoute
+  '/simple-server-route': typeof SimpleServerRouteRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -121,6 +137,8 @@ export interface FileRoutesById {
   '/middleware': typeof MiddlewareRoute
   '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
+  '/server-routes': typeof ServerRoutesRoute
+  '/simple-server-route': typeof SimpleServerRouteRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -137,6 +155,8 @@ export interface FileRouteTypes {
     | '/middleware'
     | '/playground'
     | '/posts'
+    | '/server-routes'
+    | '/simple-server-route'
     | '/api/demo-names'
     | '/posts/$postId'
     | '/demo/start/api-request'
@@ -151,6 +171,8 @@ export interface FileRouteTypes {
     | '/middleware'
     | '/playground'
     | '/posts'
+    | '/server-routes'
+    | '/simple-server-route'
     | '/api/demo-names'
     | '/posts/$postId'
     | '/demo/start/api-request'
@@ -165,6 +187,8 @@ export interface FileRouteTypes {
     | '/middleware'
     | '/playground'
     | '/posts'
+    | '/server-routes'
+    | '/simple-server-route'
     | '/api/demo-names'
     | '/posts/$postId'
     | '/demo/start/api-request'
@@ -180,6 +204,8 @@ export interface RootRouteChildren {
   MiddlewareRoute: typeof MiddlewareRoute
   PlaygroundRoute: typeof PlaygroundRoute
   PostsRoute: typeof PostsRouteWithChildren
+  ServerRoutesRoute: typeof ServerRoutesRoute
+  SimpleServerRouteRoute: typeof SimpleServerRouteRoute
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
@@ -187,6 +213,20 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/simple-server-route': {
+      id: '/simple-server-route'
+      path: '/simple-server-route'
+      fullPath: '/simple-server-route'
+      preLoaderRoute: typeof SimpleServerRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/server-routes': {
+      id: '/server-routes'
+      path: '/server-routes'
+      fullPath: '/server-routes'
+      preLoaderRoute: typeof ServerRoutesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/posts': {
       id: '/posts'
       path: '/posts'
@@ -293,6 +333,8 @@ const rootRouteChildren: RootRouteChildren = {
   MiddlewareRoute: MiddlewareRoute,
   PlaygroundRoute: PlaygroundRoute,
   PostsRoute: PostsRouteWithChildren,
+  ServerRoutesRoute: ServerRoutesRoute,
+  SimpleServerRouteRoute: SimpleServerRouteRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
