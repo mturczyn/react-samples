@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SimpleServerRouteRouteImport } from './routes/simple-server-route'
-import { Route as ServerRoutesRouteImport } from './routes/server-routes'
 import { Route as PostsRouteImport } from './routes/posts'
 import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as MiddlewareRouteImport } from './routes/middleware'
@@ -19,19 +18,21 @@ import { Route as GoogleRouteImport } from './routes/google'
 import { Route as ErrorBoundaryRouteImport } from './routes/error-boundary'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ServerRoutesIndexRouteImport } from './routes/server-routes/index'
+import { Route as SelectiveSsrIndexRouteImport } from './routes/selective-ssr/index'
+import { Route as ServerRoutesSomeIdRouteImport } from './routes/server-routes/$someId'
+import { Route as SelectiveSsrDataOnlyRenderingRouteImport } from './routes/selective-ssr/data-only-rendering'
+import { Route as SelectiveSsrClientSideRenderRouteImport } from './routes/selective-ssr/client-side-render'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
 import { Route as ApiDemoNamesRouteImport } from './routes/api.demo-names'
+import { Route as ServerRoutesSplatSplatRouteImport } from './routes/server-routes/splat/$'
+import { Route as ServerRoutesSomeDataSomeMoreDataRouteImport } from './routes/server-routes/$someData/$someMoreData'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo.start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo.start.api-request'
 
 const SimpleServerRouteRoute = SimpleServerRouteRouteImport.update({
   id: '/simple-server-route',
   path: '/simple-server-route',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServerRoutesRoute = ServerRoutesRouteImport.update({
-  id: '/server-routes',
-  path: '/server-routes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PostsRoute = PostsRouteImport.update({
@@ -74,6 +75,33 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServerRoutesIndexRoute = ServerRoutesIndexRouteImport.update({
+  id: '/server-routes/',
+  path: '/server-routes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SelectiveSsrIndexRoute = SelectiveSsrIndexRouteImport.update({
+  id: '/selective-ssr/',
+  path: '/selective-ssr/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServerRoutesSomeIdRoute = ServerRoutesSomeIdRouteImport.update({
+  id: '/server-routes/$someId',
+  path: '/server-routes/$someId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SelectiveSsrDataOnlyRenderingRoute =
+  SelectiveSsrDataOnlyRenderingRouteImport.update({
+    id: '/selective-ssr/data-only-rendering',
+    path: '/selective-ssr/data-only-rendering',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SelectiveSsrClientSideRenderRoute =
+  SelectiveSsrClientSideRenderRouteImport.update({
+    id: '/selective-ssr/client-side-render',
+    path: '/selective-ssr/client-side-render',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PostsPostIdRoute = PostsPostIdRouteImport.update({
   id: '/$postId',
   path: '/$postId',
@@ -84,6 +112,17 @@ const ApiDemoNamesRoute = ApiDemoNamesRouteImport.update({
   path: '/api/demo-names',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServerRoutesSplatSplatRoute = ServerRoutesSplatSplatRouteImport.update({
+  id: '/server-routes/splat/$',
+  path: '/server-routes/splat/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServerRoutesSomeDataSomeMoreDataRoute =
+  ServerRoutesSomeDataSomeMoreDataRouteImport.update({
+    id: '/server-routes/$someData/$someMoreData',
+    path: '/server-routes/$someData/$someMoreData',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
   id: '/demo/start/server-funcs',
   path: '/demo/start/server-funcs',
@@ -104,12 +143,18 @@ export interface FileRoutesByFullPath {
   '/middleware': typeof MiddlewareRoute
   '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
-  '/server-routes': typeof ServerRoutesRoute
   '/simple-server-route': typeof SimpleServerRouteRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/posts/$postId': typeof PostsPostIdRoute
+  '/selective-ssr/client-side-render': typeof SelectiveSsrClientSideRenderRoute
+  '/selective-ssr/data-only-rendering': typeof SelectiveSsrDataOnlyRenderingRoute
+  '/server-routes/$someId': typeof ServerRoutesSomeIdRoute
+  '/selective-ssr': typeof SelectiveSsrIndexRoute
+  '/server-routes': typeof ServerRoutesIndexRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/server-routes/$someData/$someMoreData': typeof ServerRoutesSomeDataSomeMoreDataRoute
+  '/server-routes/splat/$': typeof ServerRoutesSplatSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -120,12 +165,18 @@ export interface FileRoutesByTo {
   '/middleware': typeof MiddlewareRoute
   '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
-  '/server-routes': typeof ServerRoutesRoute
   '/simple-server-route': typeof SimpleServerRouteRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/posts/$postId': typeof PostsPostIdRoute
+  '/selective-ssr/client-side-render': typeof SelectiveSsrClientSideRenderRoute
+  '/selective-ssr/data-only-rendering': typeof SelectiveSsrDataOnlyRenderingRoute
+  '/server-routes/$someId': typeof ServerRoutesSomeIdRoute
+  '/selective-ssr': typeof SelectiveSsrIndexRoute
+  '/server-routes': typeof ServerRoutesIndexRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/server-routes/$someData/$someMoreData': typeof ServerRoutesSomeDataSomeMoreDataRoute
+  '/server-routes/splat/$': typeof ServerRoutesSplatSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -137,12 +188,18 @@ export interface FileRoutesById {
   '/middleware': typeof MiddlewareRoute
   '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
-  '/server-routes': typeof ServerRoutesRoute
   '/simple-server-route': typeof SimpleServerRouteRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/posts/$postId': typeof PostsPostIdRoute
+  '/selective-ssr/client-side-render': typeof SelectiveSsrClientSideRenderRoute
+  '/selective-ssr/data-only-rendering': typeof SelectiveSsrDataOnlyRenderingRoute
+  '/server-routes/$someId': typeof ServerRoutesSomeIdRoute
+  '/selective-ssr/': typeof SelectiveSsrIndexRoute
+  '/server-routes/': typeof ServerRoutesIndexRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/server-routes/$someData/$someMoreData': typeof ServerRoutesSomeDataSomeMoreDataRoute
+  '/server-routes/splat/$': typeof ServerRoutesSplatSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -155,12 +212,18 @@ export interface FileRouteTypes {
     | '/middleware'
     | '/playground'
     | '/posts'
-    | '/server-routes'
     | '/simple-server-route'
     | '/api/demo-names'
     | '/posts/$postId'
+    | '/selective-ssr/client-side-render'
+    | '/selective-ssr/data-only-rendering'
+    | '/server-routes/$someId'
+    | '/selective-ssr'
+    | '/server-routes'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/server-routes/$someData/$someMoreData'
+    | '/server-routes/splat/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -171,12 +234,18 @@ export interface FileRouteTypes {
     | '/middleware'
     | '/playground'
     | '/posts'
-    | '/server-routes'
     | '/simple-server-route'
     | '/api/demo-names'
     | '/posts/$postId'
+    | '/selective-ssr/client-side-render'
+    | '/selective-ssr/data-only-rendering'
+    | '/server-routes/$someId'
+    | '/selective-ssr'
+    | '/server-routes'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/server-routes/$someData/$someMoreData'
+    | '/server-routes/splat/$'
   id:
     | '__root__'
     | '/'
@@ -187,12 +256,18 @@ export interface FileRouteTypes {
     | '/middleware'
     | '/playground'
     | '/posts'
-    | '/server-routes'
     | '/simple-server-route'
     | '/api/demo-names'
     | '/posts/$postId'
+    | '/selective-ssr/client-side-render'
+    | '/selective-ssr/data-only-rendering'
+    | '/server-routes/$someId'
+    | '/selective-ssr/'
+    | '/server-routes/'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/server-routes/$someData/$someMoreData'
+    | '/server-routes/splat/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -204,11 +279,17 @@ export interface RootRouteChildren {
   MiddlewareRoute: typeof MiddlewareRoute
   PlaygroundRoute: typeof PlaygroundRoute
   PostsRoute: typeof PostsRouteWithChildren
-  ServerRoutesRoute: typeof ServerRoutesRoute
   SimpleServerRouteRoute: typeof SimpleServerRouteRoute
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
+  SelectiveSsrClientSideRenderRoute: typeof SelectiveSsrClientSideRenderRoute
+  SelectiveSsrDataOnlyRenderingRoute: typeof SelectiveSsrDataOnlyRenderingRoute
+  ServerRoutesSomeIdRoute: typeof ServerRoutesSomeIdRoute
+  SelectiveSsrIndexRoute: typeof SelectiveSsrIndexRoute
+  ServerRoutesIndexRoute: typeof ServerRoutesIndexRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
+  ServerRoutesSomeDataSomeMoreDataRoute: typeof ServerRoutesSomeDataSomeMoreDataRoute
+  ServerRoutesSplatSplatRoute: typeof ServerRoutesSplatSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -218,13 +299,6 @@ declare module '@tanstack/react-router' {
       path: '/simple-server-route'
       fullPath: '/simple-server-route'
       preLoaderRoute: typeof SimpleServerRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/server-routes': {
-      id: '/server-routes'
-      path: '/server-routes'
-      fullPath: '/server-routes'
-      preLoaderRoute: typeof ServerRoutesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/posts': {
@@ -283,6 +357,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/server-routes/': {
+      id: '/server-routes/'
+      path: '/server-routes'
+      fullPath: '/server-routes'
+      preLoaderRoute: typeof ServerRoutesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/selective-ssr/': {
+      id: '/selective-ssr/'
+      path: '/selective-ssr'
+      fullPath: '/selective-ssr'
+      preLoaderRoute: typeof SelectiveSsrIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/server-routes/$someId': {
+      id: '/server-routes/$someId'
+      path: '/server-routes/$someId'
+      fullPath: '/server-routes/$someId'
+      preLoaderRoute: typeof ServerRoutesSomeIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/selective-ssr/data-only-rendering': {
+      id: '/selective-ssr/data-only-rendering'
+      path: '/selective-ssr/data-only-rendering'
+      fullPath: '/selective-ssr/data-only-rendering'
+      preLoaderRoute: typeof SelectiveSsrDataOnlyRenderingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/selective-ssr/client-side-render': {
+      id: '/selective-ssr/client-side-render'
+      path: '/selective-ssr/client-side-render'
+      fullPath: '/selective-ssr/client-side-render'
+      preLoaderRoute: typeof SelectiveSsrClientSideRenderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/posts/$postId': {
       id: '/posts/$postId'
       path: '/$postId'
@@ -295,6 +404,20 @@ declare module '@tanstack/react-router' {
       path: '/api/demo-names'
       fullPath: '/api/demo-names'
       preLoaderRoute: typeof ApiDemoNamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/server-routes/splat/$': {
+      id: '/server-routes/splat/$'
+      path: '/server-routes/splat/$'
+      fullPath: '/server-routes/splat/$'
+      preLoaderRoute: typeof ServerRoutesSplatSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/server-routes/$someData/$someMoreData': {
+      id: '/server-routes/$someData/$someMoreData'
+      path: '/server-routes/$someData/$someMoreData'
+      fullPath: '/server-routes/$someData/$someMoreData'
+      preLoaderRoute: typeof ServerRoutesSomeDataSomeMoreDataRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/start/server-funcs': {
@@ -333,11 +456,17 @@ const rootRouteChildren: RootRouteChildren = {
   MiddlewareRoute: MiddlewareRoute,
   PlaygroundRoute: PlaygroundRoute,
   PostsRoute: PostsRouteWithChildren,
-  ServerRoutesRoute: ServerRoutesRoute,
   SimpleServerRouteRoute: SimpleServerRouteRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
+  SelectiveSsrClientSideRenderRoute: SelectiveSsrClientSideRenderRoute,
+  SelectiveSsrDataOnlyRenderingRoute: SelectiveSsrDataOnlyRenderingRoute,
+  ServerRoutesSomeIdRoute: ServerRoutesSomeIdRoute,
+  SelectiveSsrIndexRoute: SelectiveSsrIndexRoute,
+  ServerRoutesIndexRoute: ServerRoutesIndexRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
+  ServerRoutesSomeDataSomeMoreDataRoute: ServerRoutesSomeDataSomeMoreDataRoute,
+  ServerRoutesSplatSplatRoute: ServerRoutesSplatSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -39,6 +39,10 @@ export default function Header() {
                 <div>
                     <Link to="/server-routes">Server Routes</Link>
                 </div>
+
+                <div>
+                    <Link to="/selective-ssr">Selective SSR</Link>
+                </div>
             </nav>
         </header>
     )

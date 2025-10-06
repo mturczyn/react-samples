@@ -4,7 +4,12 @@ import {
     createIsomorphicFn,
     createServerFn,
     createServerOnlyFn,
+    json,
 } from '@tanstack/react-start'
+import {
+    setResponseHeader,
+    setResponseStatus,
+} from '@tanstack/react-start/server'
 import { staticFunctionMiddleware } from '@tanstack/start-static-server-functions'
 
 // ✅ This runs on BOTH server and client
@@ -88,6 +93,14 @@ export const getServerUsers = createServerFn().handler(async () => {
         },
     ]
 })
+
+export const exampleEndpont = createServerFn({ method: 'POST' }).handler(
+    async () => {
+        setResponseHeader('header-test', 'header-value')
+        setResponseStatus(400)
+        return { bad: 'request' }
+    }
+)
 
 export const throwRedirect = createServerFn().handler(() => {
     throw redirect({ to: '/', statusCode: 302 })
