@@ -10,12 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SimpleServerRouteRouteImport } from './routes/simple-server-route'
+import { Route as ServerEntryPointRouteImport } from './routes/server-entry-point'
 import { Route as PostsRouteImport } from './routes/posts'
 import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as MiddlewareRouteImport } from './routes/middleware'
 import { Route as HydrationMismatchesRouteImport } from './routes/hydration-mismatches'
 import { Route as GoogleRouteImport } from './routes/google'
 import { Route as ErrorBoundaryRouteImport } from './routes/error-boundary'
+import { Route as ClientEntryPointRouteImport } from './routes/client-entry-point'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServerRoutesIndexRouteImport } from './routes/server-routes/index'
@@ -33,6 +35,11 @@ import { Route as DemoStartApiRequestRouteImport } from './routes/demo.start.api
 const SimpleServerRouteRoute = SimpleServerRouteRouteImport.update({
   id: '/simple-server-route',
   path: '/simple-server-route',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServerEntryPointRoute = ServerEntryPointRouteImport.update({
+  id: '/server-entry-point',
+  path: '/server-entry-point',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PostsRoute = PostsRouteImport.update({
@@ -63,6 +70,11 @@ const GoogleRoute = GoogleRouteImport.update({
 const ErrorBoundaryRoute = ErrorBoundaryRouteImport.update({
   id: '/error-boundary',
   path: '/error-boundary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClientEntryPointRoute = ClientEntryPointRouteImport.update({
+  id: '/client-entry-point',
+  path: '/client-entry-point',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SplatRoute = SplatRouteImport.update({
@@ -137,12 +149,14 @@ const DemoStartApiRequestRoute = DemoStartApiRequestRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/client-entry-point': typeof ClientEntryPointRoute
   '/error-boundary': typeof ErrorBoundaryRoute
   '/google': typeof GoogleRoute
   '/hydration-mismatches': typeof HydrationMismatchesRoute
   '/middleware': typeof MiddlewareRoute
   '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
+  '/server-entry-point': typeof ServerEntryPointRoute
   '/simple-server-route': typeof SimpleServerRouteRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -159,12 +173,14 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/client-entry-point': typeof ClientEntryPointRoute
   '/error-boundary': typeof ErrorBoundaryRoute
   '/google': typeof GoogleRoute
   '/hydration-mismatches': typeof HydrationMismatchesRoute
   '/middleware': typeof MiddlewareRoute
   '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
+  '/server-entry-point': typeof ServerEntryPointRoute
   '/simple-server-route': typeof SimpleServerRouteRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -182,12 +198,14 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/client-entry-point': typeof ClientEntryPointRoute
   '/error-boundary': typeof ErrorBoundaryRoute
   '/google': typeof GoogleRoute
   '/hydration-mismatches': typeof HydrationMismatchesRoute
   '/middleware': typeof MiddlewareRoute
   '/playground': typeof PlaygroundRoute
   '/posts': typeof PostsRouteWithChildren
+  '/server-entry-point': typeof ServerEntryPointRoute
   '/simple-server-route': typeof SimpleServerRouteRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -206,12 +224,14 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/$'
+    | '/client-entry-point'
     | '/error-boundary'
     | '/google'
     | '/hydration-mismatches'
     | '/middleware'
     | '/playground'
     | '/posts'
+    | '/server-entry-point'
     | '/simple-server-route'
     | '/api/demo-names'
     | '/posts/$postId'
@@ -228,12 +248,14 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/$'
+    | '/client-entry-point'
     | '/error-boundary'
     | '/google'
     | '/hydration-mismatches'
     | '/middleware'
     | '/playground'
     | '/posts'
+    | '/server-entry-point'
     | '/simple-server-route'
     | '/api/demo-names'
     | '/posts/$postId'
@@ -250,12 +272,14 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/$'
+    | '/client-entry-point'
     | '/error-boundary'
     | '/google'
     | '/hydration-mismatches'
     | '/middleware'
     | '/playground'
     | '/posts'
+    | '/server-entry-point'
     | '/simple-server-route'
     | '/api/demo-names'
     | '/posts/$postId'
@@ -273,12 +297,14 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
+  ClientEntryPointRoute: typeof ClientEntryPointRoute
   ErrorBoundaryRoute: typeof ErrorBoundaryRoute
   GoogleRoute: typeof GoogleRoute
   HydrationMismatchesRoute: typeof HydrationMismatchesRoute
   MiddlewareRoute: typeof MiddlewareRoute
   PlaygroundRoute: typeof PlaygroundRoute
   PostsRoute: typeof PostsRouteWithChildren
+  ServerEntryPointRoute: typeof ServerEntryPointRoute
   SimpleServerRouteRoute: typeof SimpleServerRouteRoute
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
   SelectiveSsrClientSideRenderRoute: typeof SelectiveSsrClientSideRenderRoute
@@ -299,6 +325,13 @@ declare module '@tanstack/react-router' {
       path: '/simple-server-route'
       fullPath: '/simple-server-route'
       preLoaderRoute: typeof SimpleServerRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/server-entry-point': {
+      id: '/server-entry-point'
+      path: '/server-entry-point'
+      fullPath: '/server-entry-point'
+      preLoaderRoute: typeof ServerEntryPointRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/posts': {
@@ -341,6 +374,13 @@ declare module '@tanstack/react-router' {
       path: '/error-boundary'
       fullPath: '/error-boundary'
       preLoaderRoute: typeof ErrorBoundaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/client-entry-point': {
+      id: '/client-entry-point'
+      path: '/client-entry-point'
+      fullPath: '/client-entry-point'
+      preLoaderRoute: typeof ClientEntryPointRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$': {
@@ -450,12 +490,14 @@ const PostsRouteWithChildren = PostsRoute._addFileChildren(PostsRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
+  ClientEntryPointRoute: ClientEntryPointRoute,
   ErrorBoundaryRoute: ErrorBoundaryRoute,
   GoogleRoute: GoogleRoute,
   HydrationMismatchesRoute: HydrationMismatchesRoute,
   MiddlewareRoute: MiddlewareRoute,
   PlaygroundRoute: PlaygroundRoute,
   PostsRoute: PostsRouteWithChildren,
+  ServerEntryPointRoute: ServerEntryPointRoute,
   SimpleServerRouteRoute: SimpleServerRouteRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
   SelectiveSsrClientSideRenderRoute: SelectiveSsrClientSideRenderRoute,

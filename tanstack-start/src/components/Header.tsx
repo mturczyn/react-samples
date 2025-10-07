@@ -43,6 +43,14 @@ export default function Header() {
                 <div>
                     <Link to="/selective-ssr">Selective SSR</Link>
                 </div>
+
+                <div>
+                    <Link to="/server-entry-point">Server Entry Point</Link>
+                </div>
+
+                <div>
+                    <Link to="/client-entry-point">Client Entry Point</Link>
+                </div>
             </nav>
         </header>
     )
