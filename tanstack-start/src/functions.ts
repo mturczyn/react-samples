@@ -11,6 +11,7 @@ import {
     setResponseStatus,
 } from '@tanstack/react-start/server'
 import { staticFunctionMiddleware } from '@tanstack/start-static-server-functions'
+import { useAppSession } from './useAppSession'
 
 // ✅ This runs on BOTH server and client
 export function formatPrice(price: number) {
@@ -122,3 +123,39 @@ export const staticServerFunction = createServerFn()
             // GUID just used to inspect bundles, where this code ends up
             "Hello, World! And here's some GUID: e1cdaf45-1416-486f-8a37-cb2d52067145"
     )
+
+export const loginFn = createServerFn({ method: 'POST' })
+    .inputValidator((data: { email: string; password: string }) => data)
+    .handler(async ({ data }) => {
+        // Verify credentials (replace with your auth logic)
+        const user = !!data.email && !!data.password
+
+        if (!user) {
+            return { error: 'Invalid credentials' }
+        }
+
+        // Create session
+        const session = await useAppSession()
+
+        await session.update({
+            userId: `id-${data.email}`,
+            email: data.email,
+        })
+
+        // Redirect to protected area
+        // throw redirect({ to: '/auth/protected-route' })
+    })
+
+export const getCurrentUserFn = createServerFn({ method: 'GET' }).handler(
+    async () => {
+        const session = await useAppSession()
+        const userId = session.data.userId
+        const email = session.data.email
+
+        if (!userId) {
+            return null
+        }
+
+        return { userId, email }
+    }
+)

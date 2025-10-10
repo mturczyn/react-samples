@@ -22,10 +22,12 @@ import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServerRoutesIndexRouteImport } from './routes/server-routes/index'
 import { Route as SelectiveSsrIndexRouteImport } from './routes/selective-ssr/index'
+import { Route as AuthIndexRouteImport } from './routes/auth/index'
 import { Route as ServerRoutesSomeIdRouteImport } from './routes/server-routes/$someId'
 import { Route as SelectiveSsrDataOnlyRenderingRouteImport } from './routes/selective-ssr/data-only-rendering'
 import { Route as SelectiveSsrClientSideRenderRouteImport } from './routes/selective-ssr/client-side-render'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
+import { Route as AuthProtectedRouteRouteImport } from './routes/auth/protected-route'
 import { Route as ApiDemoNamesRouteImport } from './routes/api.demo-names'
 import { Route as ServerRoutesSplatSplatRouteImport } from './routes/server-routes/splat/$'
 import { Route as ServerRoutesSomeDataSomeMoreDataRouteImport } from './routes/server-routes/$someData/$someMoreData'
@@ -97,6 +99,11 @@ const SelectiveSsrIndexRoute = SelectiveSsrIndexRouteImport.update({
   path: '/selective-ssr/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthIndexRoute = AuthIndexRouteImport.update({
+  id: '/auth/',
+  path: '/auth/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServerRoutesSomeIdRoute = ServerRoutesSomeIdRouteImport.update({
   id: '/server-routes/$someId',
   path: '/server-routes/$someId',
@@ -118,6 +125,11 @@ const PostsPostIdRoute = PostsPostIdRouteImport.update({
   id: '/$postId',
   path: '/$postId',
   getParentRoute: () => PostsRoute,
+} as any)
+const AuthProtectedRouteRoute = AuthProtectedRouteRouteImport.update({
+  id: '/auth/protected-route',
+  path: '/auth/protected-route',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiDemoNamesRoute = ApiDemoNamesRouteImport.update({
   id: '/api/demo-names',
@@ -159,10 +171,12 @@ export interface FileRoutesByFullPath {
   '/server-entry-point': typeof ServerEntryPointRoute
   '/simple-server-route': typeof SimpleServerRouteRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
+  '/auth/protected-route': typeof AuthProtectedRouteRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/selective-ssr/client-side-render': typeof SelectiveSsrClientSideRenderRoute
   '/selective-ssr/data-only-rendering': typeof SelectiveSsrDataOnlyRenderingRoute
   '/server-routes/$someId': typeof ServerRoutesSomeIdRoute
+  '/auth': typeof AuthIndexRoute
   '/selective-ssr': typeof SelectiveSsrIndexRoute
   '/server-routes': typeof ServerRoutesIndexRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -183,10 +197,12 @@ export interface FileRoutesByTo {
   '/server-entry-point': typeof ServerEntryPointRoute
   '/simple-server-route': typeof SimpleServerRouteRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
+  '/auth/protected-route': typeof AuthProtectedRouteRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/selective-ssr/client-side-render': typeof SelectiveSsrClientSideRenderRoute
   '/selective-ssr/data-only-rendering': typeof SelectiveSsrDataOnlyRenderingRoute
   '/server-routes/$someId': typeof ServerRoutesSomeIdRoute
+  '/auth': typeof AuthIndexRoute
   '/selective-ssr': typeof SelectiveSsrIndexRoute
   '/server-routes': typeof ServerRoutesIndexRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -208,10 +224,12 @@ export interface FileRoutesById {
   '/server-entry-point': typeof ServerEntryPointRoute
   '/simple-server-route': typeof SimpleServerRouteRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
+  '/auth/protected-route': typeof AuthProtectedRouteRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/selective-ssr/client-side-render': typeof SelectiveSsrClientSideRenderRoute
   '/selective-ssr/data-only-rendering': typeof SelectiveSsrDataOnlyRenderingRoute
   '/server-routes/$someId': typeof ServerRoutesSomeIdRoute
+  '/auth/': typeof AuthIndexRoute
   '/selective-ssr/': typeof SelectiveSsrIndexRoute
   '/server-routes/': typeof ServerRoutesIndexRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -234,10 +252,12 @@ export interface FileRouteTypes {
     | '/server-entry-point'
     | '/simple-server-route'
     | '/api/demo-names'
+    | '/auth/protected-route'
     | '/posts/$postId'
     | '/selective-ssr/client-side-render'
     | '/selective-ssr/data-only-rendering'
     | '/server-routes/$someId'
+    | '/auth'
     | '/selective-ssr'
     | '/server-routes'
     | '/demo/start/api-request'
@@ -258,10 +278,12 @@ export interface FileRouteTypes {
     | '/server-entry-point'
     | '/simple-server-route'
     | '/api/demo-names'
+    | '/auth/protected-route'
     | '/posts/$postId'
     | '/selective-ssr/client-side-render'
     | '/selective-ssr/data-only-rendering'
     | '/server-routes/$someId'
+    | '/auth'
     | '/selective-ssr'
     | '/server-routes'
     | '/demo/start/api-request'
@@ -282,10 +304,12 @@ export interface FileRouteTypes {
     | '/server-entry-point'
     | '/simple-server-route'
     | '/api/demo-names'
+    | '/auth/protected-route'
     | '/posts/$postId'
     | '/selective-ssr/client-side-render'
     | '/selective-ssr/data-only-rendering'
     | '/server-routes/$someId'
+    | '/auth/'
     | '/selective-ssr/'
     | '/server-routes/'
     | '/demo/start/api-request'
@@ -307,9 +331,11 @@ export interface RootRouteChildren {
   ServerEntryPointRoute: typeof ServerEntryPointRoute
   SimpleServerRouteRoute: typeof SimpleServerRouteRoute
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
+  AuthProtectedRouteRoute: typeof AuthProtectedRouteRoute
   SelectiveSsrClientSideRenderRoute: typeof SelectiveSsrClientSideRenderRoute
   SelectiveSsrDataOnlyRenderingRoute: typeof SelectiveSsrDataOnlyRenderingRoute
   ServerRoutesSomeIdRoute: typeof ServerRoutesSomeIdRoute
+  AuthIndexRoute: typeof AuthIndexRoute
   SelectiveSsrIndexRoute: typeof SelectiveSsrIndexRoute
   ServerRoutesIndexRoute: typeof ServerRoutesIndexRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
@@ -411,6 +437,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SelectiveSsrIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/': {
+      id: '/auth/'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/server-routes/$someId': {
       id: '/server-routes/$someId'
       path: '/server-routes/$someId'
@@ -438,6 +471,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/posts/$postId'
       preLoaderRoute: typeof PostsPostIdRouteImport
       parentRoute: typeof PostsRoute
+    }
+    '/auth/protected-route': {
+      id: '/auth/protected-route'
+      path: '/auth/protected-route'
+      fullPath: '/auth/protected-route'
+      preLoaderRoute: typeof AuthProtectedRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/demo-names': {
       id: '/api/demo-names'
@@ -500,9 +540,11 @@ const rootRouteChildren: RootRouteChildren = {
   ServerEntryPointRoute: ServerEntryPointRoute,
   SimpleServerRouteRoute: SimpleServerRouteRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
+  AuthProtectedRouteRoute: AuthProtectedRouteRoute,
   SelectiveSsrClientSideRenderRoute: SelectiveSsrClientSideRenderRoute,
   SelectiveSsrDataOnlyRenderingRoute: SelectiveSsrDataOnlyRenderingRoute,
   ServerRoutesSomeIdRoute: ServerRoutesSomeIdRoute,
+  AuthIndexRoute: AuthIndexRoute,
   SelectiveSsrIndexRoute: SelectiveSsrIndexRoute,
   ServerRoutesIndexRoute: ServerRoutesIndexRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,

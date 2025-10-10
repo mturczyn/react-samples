@@ -51,6 +51,10 @@ export default function Header() {
                 <div>
                     <Link to="/client-entry-point">Client Entry Point</Link>
                 </div>
+
+                <div>
+                    <Link to="/auth">Auth Overview</Link>
+                </div>
             </nav>
         </header>
     )
