@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TestDataFromDbRouteImport } from './routes/test-data-from-db'
 import { Route as SimpleServerRouteRouteImport } from './routes/simple-server-route'
 import { Route as ServerEntryPointRouteImport } from './routes/server-entry-point'
 import { Route as PostsRouteImport } from './routes/posts'
@@ -34,6 +35,11 @@ import { Route as ServerRoutesSomeDataSomeMoreDataRouteImport } from './routes/s
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo.start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo.start.api-request'
 
+const TestDataFromDbRoute = TestDataFromDbRouteImport.update({
+  id: '/test-data-from-db',
+  path: '/test-data-from-db',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SimpleServerRouteRoute = SimpleServerRouteRouteImport.update({
   id: '/simple-server-route',
   path: '/simple-server-route',
@@ -170,6 +176,7 @@ export interface FileRoutesByFullPath {
   '/posts': typeof PostsRouteWithChildren
   '/server-entry-point': typeof ServerEntryPointRoute
   '/simple-server-route': typeof SimpleServerRouteRoute
+  '/test-data-from-db': typeof TestDataFromDbRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/auth/protected-route': typeof AuthProtectedRouteRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -196,6 +203,7 @@ export interface FileRoutesByTo {
   '/posts': typeof PostsRouteWithChildren
   '/server-entry-point': typeof ServerEntryPointRoute
   '/simple-server-route': typeof SimpleServerRouteRoute
+  '/test-data-from-db': typeof TestDataFromDbRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/auth/protected-route': typeof AuthProtectedRouteRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -223,6 +231,7 @@ export interface FileRoutesById {
   '/posts': typeof PostsRouteWithChildren
   '/server-entry-point': typeof ServerEntryPointRoute
   '/simple-server-route': typeof SimpleServerRouteRoute
+  '/test-data-from-db': typeof TestDataFromDbRoute
   '/api/demo-names': typeof ApiDemoNamesRoute
   '/auth/protected-route': typeof AuthProtectedRouteRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -251,6 +260,7 @@ export interface FileRouteTypes {
     | '/posts'
     | '/server-entry-point'
     | '/simple-server-route'
+    | '/test-data-from-db'
     | '/api/demo-names'
     | '/auth/protected-route'
     | '/posts/$postId'
@@ -277,6 +287,7 @@ export interface FileRouteTypes {
     | '/posts'
     | '/server-entry-point'
     | '/simple-server-route'
+    | '/test-data-from-db'
     | '/api/demo-names'
     | '/auth/protected-route'
     | '/posts/$postId'
@@ -303,6 +314,7 @@ export interface FileRouteTypes {
     | '/posts'
     | '/server-entry-point'
     | '/simple-server-route'
+    | '/test-data-from-db'
     | '/api/demo-names'
     | '/auth/protected-route'
     | '/posts/$postId'
@@ -330,6 +342,7 @@ export interface RootRouteChildren {
   PostsRoute: typeof PostsRouteWithChildren
   ServerEntryPointRoute: typeof ServerEntryPointRoute
   SimpleServerRouteRoute: typeof SimpleServerRouteRoute
+  TestDataFromDbRoute: typeof TestDataFromDbRoute
   ApiDemoNamesRoute: typeof ApiDemoNamesRoute
   AuthProtectedRouteRoute: typeof AuthProtectedRouteRoute
   SelectiveSsrClientSideRenderRoute: typeof SelectiveSsrClientSideRenderRoute
@@ -346,6 +359,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/test-data-from-db': {
+      id: '/test-data-from-db'
+      path: '/test-data-from-db'
+      fullPath: '/test-data-from-db'
+      preLoaderRoute: typeof TestDataFromDbRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/simple-server-route': {
       id: '/simple-server-route'
       path: '/simple-server-route'
@@ -539,6 +559,7 @@ const rootRouteChildren: RootRouteChildren = {
   PostsRoute: PostsRouteWithChildren,
   ServerEntryPointRoute: ServerEntryPointRoute,
   SimpleServerRouteRoute: SimpleServerRouteRoute,
+  TestDataFromDbRoute: TestDataFromDbRoute,
   ApiDemoNamesRoute: ApiDemoNamesRoute,
   AuthProtectedRouteRoute: AuthProtectedRouteRoute,
   SelectiveSsrClientSideRenderRoute: SelectiveSsrClientSideRenderRoute,

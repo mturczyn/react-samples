@@ -55,6 +55,10 @@ export default function Header() {
                 <div>
                     <Link to="/auth">Auth Overview</Link>
                 </div>
+
+                <div>
+                    <Link to="/test-data-from-db">Database</Link>
+                </div>
             </nav>
         </header>
     )
