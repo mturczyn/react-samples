@@ -26,7 +26,7 @@
         "vite-tsconfig-paths": "^5.1.4"
     },
     "devDependencies": {
-        "@neondatabase/vite-plugin-postgres": "^0.3.1",
+        "@neondatabase/vite-plugin-postgres": "^0.3.2",
         "@tanstack/react-devtools": "^0.7.4",
         "@tanstack/react-router-devtools": "^1.132.0",
         "@testing-library/dom": "^10.4.0",
