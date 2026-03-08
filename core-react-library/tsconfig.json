@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "skipLibCheck": true,
+        "noImplicitAny": false,
+
+        "target": "ESNext",
+        "module": "ESNext",
+        "jsx": "react-jsx",
+        "declaration": true, // generates .d.ts files
+        "declarationDir": "dist", // output folder for types
+        "emitDeclarationOnly": true, // emit only types (optional)
+        "strict": true,
+        "moduleResolution": "bundler",
+        "outDir": "dist"
+    },
+    "include": ["src"]
+}

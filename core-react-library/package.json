@@ -1,0 +1,27 @@
+{
+    "name": "core-react-library",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/core-react-library.umd.cjs",
+    "module": "dist/core-react-library.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build:types": "tsc",
+        "build:js": "vite build",
+        "build": "npm run build:types && npm run build:js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "peerDependencies": {
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-react": "^5.1.4",
+        "typescript": "^5.9.3",
+        "vite": "^7.3.1"
+    }
+}
